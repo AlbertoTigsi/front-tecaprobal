@@ -1,0 +1,46 @@
+<div class="form">
+  <div class="form__container">
+    <h1>Iniciar sesión</h1>
+    <form [formGroup]="form" (ngSubmit)="logIn()">
+      <div>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="isEmailValid as messsage">{{ messsage }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-flat-button color="accent" type="submit">Iniciar sesión</button>
+      </div>
+    </form>
+    <!-- <hr />
+    <span class="small-text providers">Have Google or GitHub?</span>
+    <app-button-providers [isLogin]="true" /> -->
+    <span class="small-text log-in-redirect" 
+      >¿No tienes una cuenta aún?
+      <a routerLink="/auth/sign-up">Registrate</a></span
+    >
+  </div>
+</div>

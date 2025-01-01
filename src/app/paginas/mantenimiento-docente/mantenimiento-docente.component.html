@@ -1,0 +1,176 @@
+
+<div *ngIf="mostrarMantenimiento ; then templateMantenimiento;  "></div>
+<div *ngIf="!mostrarMantenimiento; then templateListar;"></div>
+
+<ng-template #templateMantenimiento>
+<div class="form">
+    <div class="form__container">
+      <h1>Registro Docente</h1>
+      <form [formGroup]="docenteForm" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field>
+            <mat-label>Cédula</mat-label>
+            <input matInput formControlName="cedula"  maxlength="10" pattern="[0-9]*"/>
+            <mat-error *ngIf="docenteForm.controls['cedula'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            <mat-error *ngIf="docenteForm.controls['nombre'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" />
+            <mat-error *ngIf="docenteForm.controls['apellido'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo" />
+            <mat-error *ngIf="docenteForm.controls['correo'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+            <mat-error *ngIf="docenteForm.controls['correo'].hasError('email')">
+              Debe ser un correo electrónico válido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Especialidad</mat-label>
+            <input matInput formControlName="especialidad" />
+            <mat-error *ngIf="docenteForm.controls['especialidad'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" maxlength="10" pattern="[0-9]*" />
+            <mat-error *ngIf="docenteForm.controls['telefono'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+
+        <mat-form-field>
+          <mat-label>Seleccionar Horario</mat-label>
+          <mat-select formControlName="horario" >
+            <mat-option *ngFor="let horario of lstHorario" [value]="horario">
+              {{ horario.nombreMateria }} - {{ horario.diaSemana }} 
+              ({{ horario.horaInicio | date: 'shortTime' }} - {{ horario.horaFin | date: 'shortTime' }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        
+        
+      
+  
+        <div>
+          <button mat-flat-button color="accent" type="submit" (click)="clickGuardar()" [disabled]="docenteForm.invalid">Registrar</button>
+          <br>
+          <br>
+          <button mat-flat-button color="warn" type="submit" (click)="mostrarMantenimiento=false" >Cancelar</button>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateListar>
+  <div class="listar-docentes">
+    <h1>
+      <button mat-icon-button color="accent" class="regresar-boton" (click)="clickRegresar()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      Lista de Docentes
+     
+    </h1>
+    <br><br><br>
+    <mat-toolbar color="primary">
+      <span>Lista de Docentes</span>
+      <span class="spacer"></span>
+      <button mat-flat-button class="small-button" color="accent" (click)="clickCrear()">Agregar</button>
+      <button mat-flat-button class="small-button" color="accent" (click)="clickEditar(selectedDocente)" [disabled]="!selectedDocente">Editar</button>
+      <button mat-flat-button class="small-button" color="warn" (click)="clickEliminar(selectedDocente)" [disabled]="!selectedDocente">Eliminar</button>
+      <button mat-flat-button class="small-button" color="accent" (click)="listar()" >Refrescar</button>
+    </mat-toolbar>
+    <table mat-table [dataSource]="lstDocente" class="mat-elevation-z8" >
+      <!-- Cédula Column -->
+      <ng-container matColumnDef="cedula">
+        <th mat-header-cell *matHeaderCellDef>Cédula</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.cedula }}
+        </td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.nombre }}
+        </td>
+      </ng-container>
+
+      <!-- Apellido Column -->
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.apellido }}
+        </td>
+      </ng-container>
+
+      <!-- Correo Column -->
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef>Correo</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.correo }}
+        </td>
+      </ng-container>
+
+      <!-- Teléfono Column -->
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.telefono }}
+        </td>
+      </ng-container>
+
+
+      <!-- Teléfono Column -->
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+        <td mat-cell *matCellDef="let docente" >
+          {{ docente.especialidad }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="selectedDocente === row" (click)="selectDocente(row)">
+      </tr>
+      
+    </table>
+  </div>
+</ng-template>
+
+  

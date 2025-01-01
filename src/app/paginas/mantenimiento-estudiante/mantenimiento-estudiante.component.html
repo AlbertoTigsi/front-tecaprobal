@@ -1,0 +1,141 @@
+
+<div *ngIf="mostrarMantenimiento ; then templateMantenimiento;  "></div>
+<div *ngIf="!mostrarMantenimiento; then templateListar;"></div>
+
+<ng-template #templateMantenimiento>
+<div class="form">
+    <div class="form__container">
+      <h1>Registro Estudiante</h1>
+      <form [formGroup]="estudianteForm" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field>
+            <mat-label>Cédula</mat-label>
+            <input matInput formControlName="cedula" maxlength="10" pattern="[0-9]*"/>
+            <mat-error *ngIf="estudianteForm.controls['cedula'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+            <mat-error *ngIf="estudianteForm.controls['nombre'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" />
+            <mat-error *ngIf="estudianteForm.controls['apellido'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo" />
+            <mat-error *ngIf="estudianteForm.controls['correo'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+            <mat-error *ngIf="estudianteForm.controls['correo'].hasError('email')">
+              Debe ser un correo electrónico válido
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" maxlength="10" pattern="[0-9]*" />
+            <mat-error *ngIf="estudianteForm.controls['telefono'].hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+      
+  
+        <div>
+          <button mat-flat-button color="accent" type="submit" (click)="clickGuardar()" [disabled]="estudianteForm.invalid">Registrar</button>
+          <br>
+          <br>
+          <button mat-flat-button color="warn" type="submit" (click)="mostrarMantenimiento=false" >Cancelar</button>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateListar>
+  <div class="listar-estudiantes">
+     <h1> <button mat-icon-button color="accent" class="regresar-boton" (click)="clickRegresar()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+   Lista de Estudiantes</h1>
+    <br><br><br>
+    <mat-toolbar color="primary">
+      <span>Lista de Estudiantes</span>
+      <span class="spacer"></span>
+      <button mat-flat-button class="small-button" color="accent" (click)="clickCrear()">Agregar</button>
+      <button mat-flat-button class="small-button" color="accent" (click)="clickEditar(selectedEstudiante)" [disabled]="!selectedEstudiante">Editar</button>
+      <button mat-flat-button class="small-button" color="warn" (click)="clickEliminar(selectedEstudiante)" [disabled]="!selectedEstudiante">Eliminar</button>
+      <button mat-flat-button class="small-button" color="accent" (click)="listar()" >Refrescar</button>
+    </mat-toolbar>
+    <table mat-table [dataSource]="lstEstudiante" class="mat-elevation-z8" >
+      <!-- Cédula Column -->
+      <ng-container matColumnDef="cedula">
+        <th mat-header-cell *matHeaderCellDef>Cédula</th>
+        <td mat-cell *matCellDef="let estudiante" >
+          {{ estudiante.cedula }}
+        </td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let estudiante" >
+          {{ estudiante.nombre }}
+        </td>
+      </ng-container>
+
+      <!-- Apellido Column -->
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let estudiante" >
+          {{ estudiante.apellido }}
+        </td>
+      </ng-container>
+
+      <!-- Correo Column -->
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef>Correo</th>
+        <td mat-cell *matCellDef="let estudiante" >
+          {{ estudiante.correo }}
+        </td>
+      </ng-container>
+
+      <!-- Teléfono Column -->
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let estudiante" >
+          {{ estudiante.telefono }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="selectedEstudiante === row" (click)="selectEstudiante(row)">
+      </tr>
+      
+    </table>
+  </div>
+</ng-template>
+
+  

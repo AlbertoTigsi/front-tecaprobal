@@ -1,0 +1,99 @@
+.form-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(12, 122, 212, 0.1);
+    border-radius: 8px;
+  }
+  
+  .form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-title {
+    text-align: center;
+    font-size: 24px;
+    color: #1493fa;
+    margin-bottom: 20px;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-error {
+    font-size: 12px;
+    color: #d32f2f;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  hr.divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .small-text {
+    font-size: 12px;
+    text-align: center;
+    color: #299c97;
+  }
+  
+  .log-in-redirect a {
+    text-decoration: none;
+    color: #1a73e8;
+  }
+  
+  .log-in-redirect a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .toolbar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .toolbar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .small-button {
+    font-size: 0.75rem; /* Reducir tamaño de fuente */
+    padding: 4px 8px;   /* Reducir el relleno */
+    min-width: 80px;    /* Establecer un ancho mínimo */
+    max-width: 3px;   /* Limitar el ancho máximo */
+    height: 32px;       /* Ajustar altura */
+    line-height: 1.5;   /* Ajustar el espaciado de línea */
+    text-align: center; /* Centrar el texto */
+  }
+  
+  .selected {
+    background-color: #6f71fd; /* O cualquier color de tu elección */
+  }
+  tr.selected:hover {
+    background-color:  #6f71fd; /* Mantener el mismo color cuando el mouse está sobre la fila seleccionada */
+  }
