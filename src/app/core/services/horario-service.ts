@@ -8,7 +8,7 @@ import { Horario } from '../modelo/horario';
   providedIn: 'root',  // Asegura que el servicio esté disponible en toda la aplicación
 })
 export class HorarioService {
-  private baseUrl = 'http://localhost:8080/horario/';
+  private baseUrl = 'https://tecaprobal-api.onrender.com/horario/';
 
   constructor(private http: HttpClient) { }
 

@@ -19,10 +19,11 @@ import { ConfirmationDialog } from '../dialogo/confirmation-dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-mantenimiento-estudiante',
   standalone: true,
-  providers: [EstudianteService,ConfirmationDialog],
+  providers: [EstudianteService,ConfirmationDialog,AuthService],
   imports: [
      MatFormFieldModule,
      MatInputModule,
@@ -58,7 +59,8 @@ export class MantenimientoEstudianteComponent implements OnInit {
     private fb: FormBuilder ,
     private _estudianteService:EstudianteService, 
     private router:Router,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private _authService:AuthService) {
  
   }
 
@@ -138,9 +140,19 @@ export class MantenimientoEstudianteComponent implements OnInit {
     if (this.esMantenimientoNuevo == true) {
 
     this._estudianteService.agregarEstudiante(this.estudianteMantenimiento).subscribe(estudiantes => {
-      console.log(estudiantes);
-      this.listar();
-      this.mostrarMantenimiento=false;
+      if(estudiantes){
+        this.listar();
+        this.mostrarMantenimiento=false;
+        estudiantes.cedula
+
+        const credenciales = {
+          email: estudiantes.correo || '',
+          password: estudiantes.cedula || '',
+      };
+      this._authService.signUpWithEmailAndPassword(credenciales)
+
+
+      };
     })
 
 

@@ -8,7 +8,7 @@ import { DocenteDTO } from '../modelo/dtos/docente-dto';
   providedIn: 'root',  // Asegura que el servicio esté disponible en toda la aplicación
 })
 export class DocenteService {
-  private baseUrl = 'http://localhost:8080/docente/';
+  private baseUrl = 'https://tecaprobal-api.onrender.com/docente/';
 
   constructor(private http: HttpClient) { }
 

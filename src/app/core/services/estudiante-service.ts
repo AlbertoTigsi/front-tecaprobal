@@ -8,7 +8,7 @@ import { EstudianteDTO } from '../modelo/dtos/estudiante-dto';
   providedIn: 'root',  // Asegura que el servicio esté disponible en toda la aplicación
 })
 export class EstudianteService {
-  private baseUrl = 'http://localhost:8080/estudiante/';
+  private baseUrl = 'https://tecaprobal-api.onrender.com/estudiante/';
 
   constructor(private http: HttpClient) { }
 
